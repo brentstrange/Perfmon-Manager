@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace PerfMonManager
 {
@@ -21,7 +22,7 @@ namespace PerfMonManager
                 {
                     counters = perfCategory.GetCounters(instanceName);
                 }
-                
+
             }
             catch (Exception)
             {
@@ -30,5 +31,25 @@ namespace PerfMonManager
 
             return counters;
         }
+
+        public void create(string category, string categoryHelp,
+            PerformanceCounterCategoryType categoryType,
+            CounterCreationDataCollection countCreationData)
+        {
+            try
+            {
+                PerformanceCounterCategory.Create(
+                    category,
+                    categoryHelp,
+                    categoryType,
+                    countCreationData
+                    );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

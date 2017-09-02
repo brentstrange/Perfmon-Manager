@@ -43,7 +43,7 @@
     <Compile Include="Categories.cs" />
     <Compile Include="Counters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceInterface.cs" />
+    <Compile Include="PerfmonInterface.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
