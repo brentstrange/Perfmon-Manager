@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfMonInterface", "ServiceInterface\PerfMonInterface.csproj", "{8AB9A840-1739-403F-A678-13202B478CEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfMonInterfaceTests", "ServiceInterfaceTests\PerfMonInterfaceTests.csproj", "{73F5958A-478D-4F58-B168-0774C87AA512}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AB9A840-1739-403F-A678-13202B478CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB9A840-1739-403F-A678-13202B478CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB9A840-1739-403F-A678-13202B478CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB9A840-1739-403F-A678-13202B478CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F5958A-478D-4F58-B168-0774C87AA512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F5958A-478D-4F58-B168-0774C87AA512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F5958A-478D-4F58-B168-0774C87AA512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F5958A-478D-4F58-B168-0774C87AA512}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A9350FE-70C1-402C-804E-6F5C620B4280}
+	EndGlobalSection
+EndGlobal
