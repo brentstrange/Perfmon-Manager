@@ -57,7 +57,7 @@
     <Compile Include="CategoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceInterface\PerfMonInterface.csproj">
+    <ProjectReference Include="..\PerfMonInterface\PerfMonInterface.csproj">
       <Project>{8AB9A840-1739-403F-A678-13202B478CEC}</Project>
       <Name>PerfMonInterface</Name>
     </ProjectReference>
