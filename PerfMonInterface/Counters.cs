@@ -15,10 +15,12 @@ namespace PerfMonManager
         public PerformanceCounter[] list(string categoryName, string instanceName = null)
         {
             PerformanceCounter[] counters = new PerformanceCounter[] { };
+            String[] instanceNames = new Categories().getInstanceNames(categoryName);
 
             try
             {
-                PerformanceCounterCategory perfCategory = new PerformanceCounterCategory(categoryName);
+                PerformanceCounterCategory perfCategory = 
+                    new PerformanceCounterCategory(categoryName);
 
                 if (String.IsNullOrEmpty(instanceName))
                 {
@@ -32,6 +34,8 @@ namespace PerfMonManager
             }
             catch (Exception)
             {
+                // TODO, some return nothing even though I see them in Perfmon
+                //https://social.msdn.microsoft.com/Forums/vstudio/en-US/7992f5dc-b3a6-4e87-bc56-bdd1e3c898b7/performancecountercategory-getinstancenames-do-not-return-all-instances-smb-client-shares?forum=csharpgeneral
                 throw;
             }
 

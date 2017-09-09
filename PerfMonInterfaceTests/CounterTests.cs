@@ -41,8 +41,8 @@ namespace PerfMonManager.Tests
 
             Assert.IsNotNull(expectedExcetpion);
             Assert.IsInstanceOfType(expectedExcetpion, typeof(InvalidOperationException));
-            Assert.AreEqual(expectedExcetpion.Message,
-                $"Instance {invalidInstance} does not exist in category Processor.");
+            Assert.AreEqual($"Instance {invalidInstance} does not exist in category Processor.",
+                expectedExcetpion.Message);
         }
 
         [TestMethod()]
@@ -61,7 +61,7 @@ namespace PerfMonManager.Tests
 
             Assert.IsNotNull(expectedExcetpion);
             Assert.IsInstanceOfType(expectedExcetpion, typeof(InvalidOperationException));
-            Assert.AreEqual(expectedExcetpion.Message, "Category does not exist.");
+            Assert.AreEqual("Category does not exist.", expectedExcetpion.Message);
         }
 
         [TestMethod()]

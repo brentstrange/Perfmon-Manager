@@ -49,5 +49,23 @@ namespace PerfMonManager
                 throw;
             }
         }
+
+        /// <summary>
+        /// Get instance names for a Performance Counter Category
+        /// </summary>
+        /// <param name="categoryName">Category name to get intances for</param>
+        /// <returns></returns>
+        public String[] getInstanceNames(string categoryName)
+        {
+            try
+            { 
+                PerformanceCounterCategory pcc = new PerformanceCounterCategory(categoryName);
+                return pcc.GetInstanceNames();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

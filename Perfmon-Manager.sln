@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfMonInterface", "PerfMon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfMonInterfaceTests", "PerfMonInterfaceTests\PerfMonInterfaceTests.csproj", "{73F5958A-478D-4F58-B168-0774C87AA512}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerMonWpf", "PerMonWpf\PerMonWpf.csproj", "{9568D945-CC4E-4FFE-88FC-E505A303F153}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{73F5958A-478D-4F58-B168-0774C87AA512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73F5958A-478D-4F58-B168-0774C87AA512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73F5958A-478D-4F58-B168-0774C87AA512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9568D945-CC4E-4FFE-88FC-E505A303F153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9568D945-CC4E-4FFE-88FC-E505A303F153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9568D945-CC4E-4FFE-88FC-E505A303F153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9568D945-CC4E-4FFE-88FC-E505A303F153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

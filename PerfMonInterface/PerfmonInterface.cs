@@ -7,6 +7,8 @@ namespace PerfMonManager
         PerformanceCounterCategory[] getAll(string machineName = null);
 
         void delete(string category);
+
+        string[] getInstanceNames(string categoryName);
     }
 
     interface Counter

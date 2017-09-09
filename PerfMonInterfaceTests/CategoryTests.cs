@@ -31,9 +31,8 @@ namespace PerfMonManager.Tests
 
             Assert.IsNotNull(expectedExcetpion);
             Assert.IsInstanceOfType(expectedExcetpion, typeof(InvalidOperationException));
-            Assert.AreEqual(expectedExcetpion.Message, 
-               "Cannot delete Performance Category because this category is not registered or is "+
-               "a system category.");
+            Assert.AreEqual("Cannot delete Performance Category because this category is not " + 
+                "registered or is a system category.", expectedExcetpion.Message);
         }
 
         [TestMethod()]
@@ -47,7 +46,7 @@ namespace PerfMonManager.Tests
             ccd.CounterType = PerformanceCounterType.NumberOfItems64;
             counters.Add(ccd);
 
-            if(!PerformanceCounterCategory.Exists(categoryName))
+            if (!PerformanceCounterCategory.Exists(categoryName))
             {
                 new Counters().create(categoryName, "foo-category-help",
                     PerformanceCounterCategoryType.SingleInstance, counters);
@@ -55,6 +54,36 @@ namespace PerfMonManager.Tests
 
             new Categories().delete(categoryName);
             Assert.IsFalse(PerformanceCounterCategory.Exists(categoryName));
+        }
+
+        [TestMethod()]
+        public void getInstanceNamesTest()
+        {
+            String[] instanceNames = new Categories().getInstanceNames("Processor");
+            Assert.AreEqual(instanceNames.Length, 3);
+            Assert.AreEqual("_Total", instanceNames[0]);
+            Assert.AreEqual("0", instanceNames[1]);
+            Assert.AreEqual("1", instanceNames[2]);
+        }
+
+        [TestMethod()]
+        public void getInstanceNamesForNonExistentCategoryTest()
+        {
+            Exception expectedExcetpion = null;
+            String[] instanceNames = new String[] { };
+
+            try
+            {
+                instanceNames = new Categories().getInstanceNames("foo-category");
+            }
+            catch (Exception ex)
+            {
+                expectedExcetpion = ex;
+            }
+
+            Assert.IsNotNull(expectedExcetpion);
+            Assert.IsInstanceOfType(expectedExcetpion, typeof(InvalidOperationException));
+            Assert.AreEqual("Category does not exist.", expectedExcetpion.Message);
         }
     }
 }
