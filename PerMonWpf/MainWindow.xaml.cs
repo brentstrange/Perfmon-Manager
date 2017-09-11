@@ -27,6 +27,26 @@ namespace PerMonWpf
             InitializeComponent();
         }
 
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            PerformanceCounter pc = (sender as Button).DataContext as PerformanceCounter;
+
+            MessageBoxResult messageBoxResult = 
+                MessageBox.Show($"Are you sure you want to delete counter \"{ pc.CounterName}\" ?", "Delete Confirmation", MessageBoxButton.YesNo);
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                // TODO: Delete the counter, call list on the category and re-load the datagrid
+            }
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Make the row editable, change buttons to 'update' & 'cancel'
+            // on update: Call Counter.deleteOne, Counter.list and reload the datagrid
+            // on cancel: restore to read-only datagrid
+        }
+
         private void categoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (categoriesListBox.SelectedItem != null)
