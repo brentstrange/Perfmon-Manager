@@ -80,7 +80,7 @@ namespace PerfMonManager
             string machineName=null)
         {
             CategoryCounter categoryCounter = 
-                copyCategoryAndCounters(categoryName, instanceName, machineName);
+                CopyCategoryAndCounters(categoryName, instanceName, machineName);
 
             var countersWithOneRemoved =
                 categoryCounter.CounterData.Cast<CounterCreationData>()
@@ -98,8 +98,8 @@ namespace PerfMonManager
             new Categories().Delete(categoryName);
             
             // Recreate the category with the counters (minus the the "deleted" one)
-            new Counters().Create(categoryName, categoryCounter.categoryData.CategoryHelp,
-                categoryCounter.categoryData.CategoryType, finalCounters);    
+            new Counters().Create(categoryName, categoryCounter.CategoryData.CategoryHelp,
+                categoryCounter.CategoryData.CategoryType, finalCounters);    
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace PerfMonManager
         {
 
             CategoryCounter categoryCounter =
-                copyCategoryAndCounters(categoryName, instanceName, machineName);
+                CopyCategoryAndCounters(categoryName, instanceName, machineName);
 
             var countersToArray =
                 categoryCounter.CounterData.Cast<CounterCreationData>()
@@ -137,11 +137,11 @@ namespace PerfMonManager
             new Categories().Delete(categoryName);
 
             // Recreate the category with the counters (minus the the "deleted" one)
-            new Counters().Create(categoryName, categoryCounter.categoryData.CategoryHelp,
-                categoryCounter.categoryData.CategoryType, finalCounters);
+            new Counters().Create(categoryName, categoryCounter.CategoryData.CategoryHelp,
+                categoryCounter.CategoryData.CategoryType, finalCounters);
         }
 
-        private CategoryCounter copyCategoryAndCounters(string categoryName, 
+        private CategoryCounter CopyCategoryAndCounters(string categoryName, 
             string instanceName = null, string machineName = null)
         {
             CategoryCounter cc = new CategoryCounter();
@@ -168,7 +168,7 @@ namespace PerfMonManager
             cd.CategoryName = categoryRef.CategoryName;
             cd.CategoryHelp = categoryRef.CategoryHelp;
             cd.CategoryType = categoryRef.CategoryType;
-            cc.categoryData = cd;
+            cc.CategoryData = cd;
 
             // Get the category and list of counters
             if (String.IsNullOrEmpty(instanceName))
@@ -193,7 +193,7 @@ namespace PerfMonManager
 
         private struct CategoryCounter
         {
-            public CategoryData categoryData { get; set; }
+            public CategoryData CategoryData { get; set; }
             public CounterCreationDataCollection CounterData { get; set; }
         }
 

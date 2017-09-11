@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel;
+using PerfMonManager;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -36,7 +37,17 @@ namespace PerMonWpf
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                // TODO: Delete the counter, call List on the category and re-load the datagrid
+                try
+                { 
+                    PerfMonManager.Counters counter = new PerfMonManager.Counters();
+                    counter.DeleteOne(pc.CategoryName, pc.CounterName);
+                    countersDataGrid.ItemsSource = counter.List(pc.CategoryName, pc.InstanceName);
+                }
+                catch(UnauthorizedAccessException uae)
+                {
+                    MessageBox.Show(uae.Message + 
+                        " Please be sure to run this application as an Administrator.");
+                }
             }
         }
 
