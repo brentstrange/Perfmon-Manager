@@ -11,7 +11,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Counter Name" Binding="{Binding CounterName}"/>
                 <DataGridTextColumn Header="Counter Type" Binding="{Binding CounterType}"/>
-                <DataGridTextColumn Header="Counter Help" Binding="{Binding CounterHelp}"/>
+                <DataGridTemplateColumn Width="*" Header="Counter Help">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CounterHelp}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <ListBox x:Name="categoriesListBox" 
