@@ -38,8 +38,8 @@ namespace PerMonWpf
                     PerformanceCounterCategory pcc =
                         (PerformanceCounterCategory)categoriesListBox.SelectedItem;
                     categoryHelpTextBox.Text = pcc.CategoryHelp;
-                    categoryTypeLabel.Content = pcc.CategoryType;
-                    machineNameLabel.Content = pcc.MachineName;
+                    categoryTypeLabelVal.Content = pcc.CategoryType;
+                    machineNameLabelVal.Content = pcc.MachineName;
 
                     if (pcc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                     {

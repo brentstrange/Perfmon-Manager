@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PerMonWpf"
         mc:Ignorable="d"
-        Title="PerfMon Manager" Height="489.483" Width="1263.745">
+        Title="PerfMon Manager" Height="489.483" Width="1029.745">
     <Grid>
-        <DataGrid x:Name="countersDataGrid" Margin="0,126,0,0"/>
+        <DataGrid x:Name="countersDataGrid" Margin="0,141,0,0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Counter Name" Binding="{Binding CounterName}"/>
+                <DataGridTextColumn Header="Counter Type" Binding="{Binding CounterType}"/>
+                <DataGridTextColumn Header="Counter Help" Binding="{Binding CounterHelp}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <ListBox x:Name="categoriesListBox" 
                  ItemsSource="{Binding Source={x:Static local:Categories.GetAll}}"
                  SelectionChanged="categoriesListBox_SelectionChanged"
@@ -15,12 +21,13 @@
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  HorizontalAlignment="Left" Height="111" Margin="10,10,0,0" VerticalAlignment="Top" Width="224" Loaded="categoriesListBox_Loaded"/>
         <TextBox x:Name="categoryHelpTextBox" HorizontalAlignment="Left" Height="111" Margin="239,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="367"/>
-        <Label x:Name="categoryTypeLabel" Content="" HorizontalAlignment="Left" Margin="611,10,0,0" VerticalAlignment="Top" Width="344"/>
-        <Label x:Name="machineNameLabel" Content="" HorizontalAlignment="Left" Margin="611,41,0,0" VerticalAlignment="Top" Width="344"/>
-       
+        <Label x:Name="categoryTypeLabelVal" Content="" HorizontalAlignment="Left" Margin="727,10,0,0" VerticalAlignment="Top" Width="228"/>
+        <Label x:Name="machineNameLabelVal" Content="" HorizontalAlignment="Left" Margin="727,41,0,0" VerticalAlignment="Top" Width="228"/>
+        <Label x:Name="categoryTypeLabel" Content="Category Type:" HorizontalAlignment="Left" Margin="628,10,0,0" VerticalAlignment="Top" Width="94"/>
+        <Label x:Name="machineNameLabel" Content="Machine Name: " HorizontalAlignment="Left" Margin="628,41,0,0" VerticalAlignment="Top" Width="94"/>
         <ListBox x:Name="instanceNamesListBox" 
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 
-                 HorizontalAlignment="Left" Height="49" Margin="611,72,0,0" VerticalAlignment="Top" Width="289"/>
+                 HorizontalAlignment="Left" Height="49" Margin="727,77,0,0" VerticalAlignment="Top" Width="285"/>
+        <Label x:Name="instancesLabel" Content="Instances:" HorizontalAlignment="Left" Margin="628,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,-0.269" Width="94"/>
     </Grid>
 </Window>
