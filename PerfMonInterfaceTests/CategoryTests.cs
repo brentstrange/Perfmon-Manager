@@ -8,21 +8,21 @@ namespace PerfMonManager.Tests
     public class CategoryTests
     {
         [TestMethod()]
-        public void getAllCategoriesTest()
+        public void GetAllCategoriesTest()
         {
             Categories cat = new Categories();
-            var catArr = cat.getAll();
+            var catArr = cat.GetAll();
             Assert.IsTrue(catArr.Length >= 1);
         }
 
         [TestMethod()]
-        public void deleteNonExistentCategoryTest()
+        public void DeleteNonExistentCategoryTest()
         {
             Exception expectedExcetpion = null;
 
             try
             {
-                new Categories().delete("foo");
+                new Categories().Delete("foo");
             }
             catch (Exception ex)
             {
@@ -36,30 +36,31 @@ namespace PerfMonManager.Tests
         }
 
         [TestMethod()]
-        public void deleteCategoryTest()
+        public void DeleteCategoryTest()
         {
             String categoryName = "foo-category";
             CounterCreationDataCollection counters = new CounterCreationDataCollection();
-            CounterCreationData ccd = new CounterCreationData();
-            ccd.CounterName = "foo-counter";
-            ccd.CounterHelp = "foo-counter-help";
-            ccd.CounterType = PerformanceCounterType.NumberOfItems64;
+            CounterCreationData ccd = new CounterCreationData() {
+                CounterName = "foo-counter",
+                CounterHelp = "foo-counter-help",
+                CounterType = PerformanceCounterType.NumberOfItems64
+            };
             counters.Add(ccd);
 
             if (!PerformanceCounterCategory.Exists(categoryName))
             {
-                new Counters().create(categoryName, "foo-category-help",
+                new Counters().Create(categoryName, "foo-category-help",
                     PerformanceCounterCategoryType.SingleInstance, counters);
             }
 
-            new Categories().delete(categoryName);
+            new Categories().Delete(categoryName);
             Assert.IsFalse(PerformanceCounterCategory.Exists(categoryName));
         }
 
         [TestMethod()]
-        public void getInstanceNamesTest()
+        public void GetInstanceNamesTest()
         {
-            String[] instanceNames = new Categories().getInstanceNames("Processor");
+            String[] instanceNames = new Categories().GetInstanceNames("Processor");
             Assert.AreEqual(instanceNames.Length, 3);
             Assert.AreEqual("_Total", instanceNames[0]);
             Assert.AreEqual("0", instanceNames[1]);
@@ -67,14 +68,14 @@ namespace PerfMonManager.Tests
         }
 
         [TestMethod()]
-        public void getInstanceNamesForNonExistentCategoryTest()
+        public void GetInstanceNamesForNonExistentCategoryTest()
         {
             Exception expectedExcetpion = null;
             String[] instanceNames = new String[] { };
 
             try
             {
-                instanceNames = new Categories().getInstanceNames("foo-category");
+                instanceNames = new Categories().GetInstanceNames("foo-category");
             }
             catch (Exception ex)
             {

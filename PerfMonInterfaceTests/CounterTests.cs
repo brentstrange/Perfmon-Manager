@@ -11,28 +11,28 @@ namespace PerfMonManager.Tests
     public class CounterTests
     {
         [TestMethod()]
-        public void listCategoryWithoutInstanceTest()
+        public void ListCategoryWithoutInstanceTest()
         {
-            PerformanceCounter[] counters = new Counters().list("TCPv4");
+            PerformanceCounter[] counters = new Counters().List("TCPv4");
             Assert.IsTrue(counters.Length > 1);
         }
 
         [TestMethod()]
-        public void listCategoryWithInstanceTest()
+        public void ListCategoryWithInstanceTest()
         {
-            PerformanceCounter[] counters = new Counters().list("Processor", "0");
+            PerformanceCounter[] counters = new Counters().List("Processor", "0");
             Assert.IsTrue(counters.Length > 1);
         }
 
         [TestMethod()]
-        public void listCategoryWithInvalidInstanceTest()
+        public void ListCategoryWithInvalidInstanceTest()
         {
             string invalidInstance = "foo";
             Exception expectedExcetpion = null;
 
             try
             {
-                new Counters().list("Processor", invalidInstance);
+                new Counters().List("Processor", invalidInstance);
             }
             catch (Exception ex)
             {
@@ -46,13 +46,13 @@ namespace PerfMonManager.Tests
         }
 
         [TestMethod()]
-        public void listNonExistentCategoryTest()
+        public void ListNonExistentCategoryTest()
         {
             Exception expectedExcetpion = null;
 
             try
             {
-                new Counters().list("foo");
+                new Counters().List("foo");
             }
             catch (Exception ex)
             {
@@ -65,21 +65,22 @@ namespace PerfMonManager.Tests
         }
 
         [TestMethod()]
-        public void createCategoryAndSingleCounterTest()
+        public void CreateCategoryAndSingleCounterTest()
         {
             string categoryName = "foo-category";
-            deleteCategory(categoryName);
+            DeleteCategory(categoryName);
 
             CounterCreationDataCollection counters = new CounterCreationDataCollection();
-            CounterCreationData ccd = new CounterCreationData();
-            ccd.CounterName = "foo-counter";
-            ccd.CounterHelp = $"{ccd.CounterName}-help";
-            ccd.CounterType = PerformanceCounterType.NumberOfItems64;
+            CounterCreationData ccd = new CounterCreationData() {
+                CounterName = "foo-counter",
+                CounterHelp = "foo-counter-help",
+                CounterType = PerformanceCounterType.NumberOfItems64
+            };
             counters.Add(ccd);
 
             try
             {
-                new Counters().create(categoryName, $"{categoryName}-help",
+                new Counters().Create(categoryName, $"{categoryName}-help",
                     PerformanceCounterCategoryType.SingleInstance, counters);
                 Assert.IsTrue(PerformanceCounterCategory.Exists(categoryName));
             }
@@ -91,33 +92,36 @@ namespace PerfMonManager.Tests
             {
                 if (PerformanceCounterCategory.Exists(categoryName))
                 {
-                    deleteCategory(categoryName);
+                    DeleteCategory(categoryName);
                 }
             }
         }
 
         [TestMethod()]
-        public void createCategoryAndMultipleCounterTest()
+        public void CreateCategoryAndMultipleCounterTest()
         {
             string categoryName = "foo-category-multiple-counters";
-            deleteCategory(categoryName);
+            DeleteCategory(categoryName);
 
             CounterCreationDataCollection counters = new CounterCreationDataCollection();
-            CounterCreationData ccd = new CounterCreationData();
-            ccd.CounterName = "foo-counter";
-            ccd.CounterHelp = "foo-counter-help";
-            ccd.CounterType = PerformanceCounterType.NumberOfItems64;
+            CounterCreationData ccd = new CounterCreationData()
+            {
+                CounterName = "foo-counter",
+                CounterHelp = "foo-counter-help",
+                CounterType = PerformanceCounterType.NumberOfItems64
+            };
             counters.Add(ccd);
 
-            CounterCreationData ccd2 = new CounterCreationData();
-            ccd2.CounterName = "foo-counter-two";
-            ccd2.CounterHelp = "foo-counter-help-two";
-            ccd2.CounterType = PerformanceCounterType.CounterTimer;
+            CounterCreationData ccd2 = new CounterCreationData() {
+                CounterName = "foo-counter-two",
+                CounterHelp = "foo-counter-help-two",
+                CounterType = PerformanceCounterType.CounterTimer
+            };
             counters.Add(ccd2);
 
             try
             {
-                new Counters().create(categoryName, "foo-category-help",
+                new Counters().Create(categoryName, "foo-category-help",
                     PerformanceCounterCategoryType.SingleInstance, counters);
                 Assert.IsTrue(PerformanceCounterCategory.Exists(categoryName));
             }
@@ -129,27 +133,27 @@ namespace PerfMonManager.Tests
             {
                 if (PerformanceCounterCategory.Exists(categoryName))
                 {
-                    deleteCategory(categoryName);
+                    DeleteCategory(categoryName);
                 }
             }
         }
 
         [TestMethod()]
-        public void deleteOneCounterTest()
+        public void DeleteOneCounterTest()
         {
-            string categoryName = "foo-category-delete-one-counter";
+            string categoryName = "foo-category-Delete-one-counter";
             HashSet < String > counterNames = new HashSet<String>() {
-                "foo-counter-to-delete", "foo-counter-to-remain"};
+                "foo-counter-to-Delete", "foo-counter-to-remain"};
 
             try
             { 
                 // Create a category to test
-                createCategory(categoryName, counterNames);
+                CreateCategory(categoryName, counterNames);
                 
                 // Delete a counter in a category (copies, deletes & recreates category/counter)
-                new Counters().deleteOne(categoryName, counterNames.First<String>());
+                new Counters().DeleteOne(categoryName, counterNames.First<String>());
 
-                var perfCategories = new Categories().getAll();
+                var perfCategories = new Categories().GetAll();
                 var categoryRef =
                     perfCategories
                     .Where(x => x.CategoryName == categoryName).ToArray().First();
@@ -162,7 +166,7 @@ namespace PerfMonManager.Tests
                     categoryRef.CategoryType);
 
                 // Assert recreated counter and one removed
-                PerformanceCounter[] counters = new Counters().list(categoryName);
+                PerformanceCounter[] counters = new Counters().List(categoryName);
                 Assert.AreEqual(1, counters.Length);
                 Assert.AreEqual(counterNames.Last(), counters[0].CounterName);
                 Assert.AreEqual($"{counterNames.Last()}-help", counters[0].CounterHelp);
@@ -173,23 +177,23 @@ namespace PerfMonManager.Tests
                 Assert.Fail($"Assert was not executed: {ex.Message}");
             }
             finally { 
-                deleteCategory(categoryName);
+                DeleteCategory(categoryName);
             }
         }
 
         [TestMethod()]
-        public void addOneCounterTest()
+        public void AddOneCounterTest()
         {
-            string categoryName = "foo-category-add-one-counter";
+            string categoryName = "foo-category-Add-one-counter";
             HashSet<String> counterNames = new HashSet<String>() {
                 "foo-counter-1", "foo-counter-2"};
 
             try
             {
                 // Create a category to test
-                createCategory(categoryName, counterNames);
+                CreateCategory(categoryName, counterNames);
 
-                var perfCategories = new Categories().getAll();
+                var perfCategories = new Categories().GetAll();
                 var categoryRef =
                     perfCategories
                     .Where(x => x.CategoryName == categoryName).ToArray().First();
@@ -202,7 +206,7 @@ namespace PerfMonManager.Tests
                 ccd.CounterHelp = $"{AddCounterName}-help";
                 ccd.CounterType = PerformanceCounterType.NumberOfItems64;
                 ccdc.Add(ccd);
-                new Counters().add(categoryName, ccdc);
+                new Counters().Add(categoryName, ccdc);
 
                 // Assert recreated category
                 Assert.AreEqual(categoryName, categoryRef.CategoryName);
@@ -212,7 +216,7 @@ namespace PerfMonManager.Tests
                     categoryRef.CategoryType);
 
                 // Assert recreated counter and new addition
-                PerformanceCounter[] counters = new Counters().list(categoryName);
+                PerformanceCounter[] counters = new Counters().List(categoryName);
                 Assert.AreEqual(3, counters.Length);
                 Assert.AreEqual(AddCounterName, counters[2].CounterName);
                 Assert.AreEqual($"{AddCounterName}-help", counters[2].CounterHelp);
@@ -224,14 +228,14 @@ namespace PerfMonManager.Tests
             }
             finally
             {
-                deleteCategory(categoryName);
+                DeleteCategory(categoryName);
             }
 
         }
 
-        private void createCategory(string categoryName, HashSet<String> counterNames)
+        private void CreateCategory(string categoryName, HashSet<String> counterNames)
         {
-            deleteCategory(categoryName);
+            DeleteCategory(categoryName);
             CounterCreationDataCollection counters = new CounterCreationDataCollection();
 
             foreach (String counterName in counterNames)
@@ -243,15 +247,15 @@ namespace PerfMonManager.Tests
                 counters.Add(ccd);
             }
 
-            new Counters().create(categoryName, $"{categoryName}-help",
+            new Counters().Create(categoryName, $"{categoryName}-help",
                 PerformanceCounterCategoryType.SingleInstance, counters);
         }
 
-        private void deleteCategory(string categoryName)
+        private void DeleteCategory(string categoryName)
         {
             if (PerformanceCounterCategory.Exists(categoryName))
             {
-                new Categories().delete(categoryName);
+                new Categories().Delete(categoryName);
             }
         }
     }

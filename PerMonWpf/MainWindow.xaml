@@ -22,8 +22,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Button Name="Delete" Click="deleteButton_Click">Delete</Button>
-                                <Button Name="Edit" Click="editButton_Click">Edit</Button>
+                                <Button Name="Delete" Click="DeleteButton_Click">Delete</Button>
+                                <Button Name="Edit" Click="EditButton_Click">Edit</Button>
                              </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -32,10 +32,10 @@
         </DataGrid>
         <ListBox x:Name="categoriesListBox" 
                  ItemsSource="{Binding Source={x:Static local:Categories.GetAll}}"
-                 SelectionChanged="categoriesListBox_SelectionChanged"
+                 SelectionChanged="CategoriesListBox_SelectionChanged"
                  DisplayMemberPath="CategoryName"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 HorizontalAlignment="Left" Height="111" Margin="10,10,0,0" VerticalAlignment="Top" Width="224" Loaded="categoriesListBox_Loaded"/>
+                 HorizontalAlignment="Left" Height="111" Margin="10,10,0,0" VerticalAlignment="Top" Width="224" Loaded="CategoriesListBox_Loaded"/>
         <TextBox x:Name="categoryHelpTextBox" HorizontalAlignment="Left" Height="111" Margin="239,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="367"/>
         <Label x:Name="categoryTypeLabelVal" Content="" HorizontalAlignment="Left" Margin="727,10,0,0" VerticalAlignment="Top" Width="228"/>
         <Label x:Name="machineNameLabelVal" Content="" HorizontalAlignment="Left" Margin="727,41,0,0" VerticalAlignment="Top" Width="228"/>

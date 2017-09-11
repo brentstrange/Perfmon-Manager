@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PerfMonManager
 {
-    public class Counters : Counter
+    public class Counters : ICounter
     {
         /// <summary>
         /// List PerformanceCounters in a category
@@ -12,10 +12,10 @@ namespace PerfMonManager
         /// <param name="categoryName">Category name.</param>
         /// <param name="instanceName">Category instance name.</param>
         /// <returns>Array of PerformanceCounter.</returns>
-        public PerformanceCounter[] list(string categoryName, string instanceName = null)
+        public PerformanceCounter[] List(string categoryName, string instanceName = null)
         {
             PerformanceCounter[] counters = new PerformanceCounter[] { };
-            String[] instanceNames = new Categories().getInstanceNames(categoryName);
+            String[] instanceNames = new Categories().GetInstanceNames(categoryName);
 
             try
             {
@@ -49,7 +49,7 @@ namespace PerfMonManager
         /// <param name="categoryHelp">Category help.</param>
         /// <param name="categoryType">Category type.</param>
         /// <param name="counterCreationData">Counter creation data.</param>
-        public void create(string categoryName, string categoryHelp,
+        public void Create(string categoryName, string categoryHelp,
             PerformanceCounterCategoryType categoryType,
             CounterCreationDataCollection counterCreationData)
         {
@@ -72,11 +72,11 @@ namespace PerfMonManager
         /// Delete one counter from a category by copying, deleting, modifying and recreating 
         /// the category and it's counters (since counters can't be modified).
         /// </summary>
-        /// <param name="categoryName">The category name to delete a counter from.</param>
-        /// <param name="counterName">The counter name to delete.</param>
+        /// <param name="categoryName">The category name to Delete a counter from.</param>
+        /// <param name="counterName">The counter name to Delete.</param>
         /// <param name="instanceName">The category instance name.</param>
         /// <param name="machineName">The machine name the category exists on.</param>
-        public void deleteOne(string categoryName, string counterName, string instanceName=null,
+        public void DeleteOne(string categoryName, string counterName, string instanceName=null,
             string machineName=null)
         {
             CategoryCounter categoryCounter = 
@@ -95,21 +95,21 @@ namespace PerfMonManager
             }
 
             // Delete the category (since you can't modify counters in a category)
-            new Categories().delete(categoryName);
+            new Categories().Delete(categoryName);
             
             // Recreate the category with the counters (minus the the "deleted" one)
-            new Counters().create(categoryName, categoryCounter.categoryData.CategoryHelp,
+            new Counters().Create(categoryName, categoryCounter.categoryData.CategoryHelp,
                 categoryCounter.categoryData.CategoryType, finalCounters);    
         }
 
         /// <summary>
         /// Add counter(s) to a category
         /// </summary>
-        /// <param name="categoryName">Name of category to add the counter to.</param>
+        /// <param name="categoryName">Name of category to Add the counter to.</param>
         /// <param name="counterCreationDataCollection">Collection of counter creation data.</param>
         /// <param name="instanceName">The category instance name.</param>
-        /// <param name="machineName">The machine name to add the counters to.</param>
-        public void add(string categoryName,
+        /// <param name="machineName">The machine name to Add the counters to.</param>
+        public void Add(string categoryName,
             CounterCreationDataCollection counterCreationDataCollection,
             string instanceName = null,
             string machineName = null)
@@ -134,10 +134,10 @@ namespace PerfMonManager
             finalCounters.AddRange(counterCreationDataCollection);
 
             // Delete the category (since you can't modify counters in a category)
-            new Categories().delete(categoryName);
+            new Categories().Delete(categoryName);
 
             // Recreate the category with the counters (minus the the "deleted" one)
-            new Counters().create(categoryName, categoryCounter.categoryData.CategoryHelp,
+            new Counters().Create(categoryName, categoryCounter.categoryData.CategoryHelp,
                 categoryCounter.categoryData.CategoryType, finalCounters);
         }
 
@@ -154,11 +154,11 @@ namespace PerfMonManager
             PerformanceCounterCategory[] arrOfCatagories;
             if (String.IsNullOrEmpty(machineName))
             {
-                arrOfCatagories = categories.getAll();
+                arrOfCatagories = categories.GetAll();
             }
             else
             {
-                arrOfCatagories = categories.getAll(machineName);
+                arrOfCatagories = categories.GetAll(machineName);
             }
 
             var categoryRef =
@@ -173,11 +173,11 @@ namespace PerfMonManager
             // Get the category and list of counters
             if (String.IsNullOrEmpty(instanceName))
             {
-                copiedCounters = counters.list(categoryName);
+                copiedCounters = counters.List(categoryName);
             }
             else
             {
-                copiedCounters = counters.list(categoryName, instanceName);
+                copiedCounters = counters.List(categoryName, instanceName);
             }
 
             // Convert the counters to the type CounterCreationDataCollection[]

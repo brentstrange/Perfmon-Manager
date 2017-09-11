@@ -20,7 +20,7 @@ namespace PerMonWpf
             {
                 PerfMonManager.Counters counters = new PerfMonManager.Counters();
                 PerformanceCounter[] pcArray = new PerformanceCounter[] { };
-                pcArray = counters.list("WFP");
+                pcArray = counters.List("WFP");
 
                 ObservableCollection<PerformanceCounter> performanceCounter =
                     new ObservableCollection<PerformanceCounter>(){ };
@@ -43,7 +43,7 @@ namespace PerMonWpf
             {
                 PerfMonManager.Categories categories = new PerfMonManager.Categories();
                 PerformanceCounterCategory[] pcArray = new PerformanceCounterCategory[] { };
-                pcArray = categories.getAll();
+                pcArray = categories.GetAll();
 
                 ObservableCollection<PerformanceCounterCategory> performancCounterCategory =
                     new ObservableCollection<PerformanceCounterCategory>() { };

@@ -27,7 +27,7 @@ namespace PerMonWpf
             InitializeComponent();
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             PerformanceCounter pc = (sender as Button).DataContext as PerformanceCounter;
 
@@ -36,18 +36,18 @@ namespace PerMonWpf
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                // TODO: Delete the counter, call list on the category and re-load the datagrid
+                // TODO: Delete the counter, call List on the category and re-load the datagrid
             }
         }
 
-        private void editButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Make the row editable, change buttons to 'update' & 'cancel'
-            // on update: Call Counter.deleteOne, Counter.list and reload the datagrid
+            // on update: Call Counter.DeleteOne, Counter.List and reload the datagrid
             // on cancel: restore to read-only datagrid
         }
 
-        private void categoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CategoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (categoriesListBox.SelectedItem != null)
             {
@@ -63,16 +63,16 @@ namespace PerMonWpf
 
                     if (pcc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                     {
-                        countersDataGrid.ItemsSource = counters.list(pcc.CategoryName);
+                        countersDataGrid.ItemsSource = counters.List(pcc.CategoryName);
                     }
                     else
                     {
-                        string[] instances = categories.getInstanceNames(pcc.CategoryName);
+                        string[] instances = categories.GetInstanceNames(pcc.CategoryName);
 
                         if (instances.Length > 0)
                         {
                             countersDataGrid.ItemsSource =
-                                counters.list(pcc.CategoryName, instances[0]);
+                                counters.List(pcc.CategoryName, instances[0]);
                             instanceNamesListBox.ItemsSource = instances;
                         }
                         else
@@ -80,7 +80,7 @@ namespace PerMonWpf
                             categoryHelpTextBox.Text = 
                                 $"CATEGORY INSTANCES COULD NOT BE RETRIEVED! {pcc.CategoryHelp}";
                             countersDataGrid.ItemsSource =
-                                 counters.list(pcc.CategoryName, "*");
+                                 counters.List(pcc.CategoryName, "*");
                         }
                     }
 
@@ -105,7 +105,7 @@ namespace PerMonWpf
             }
         }
 
-        private void categoriesListBox_Loaded(object sender, RoutedEventArgs e)
+        private void CategoriesListBox_Loaded(object sender, RoutedEventArgs e)
         {
             categoriesListBox.Items.SortDescriptions.Add(new SortDescription("CategoryName",
                 ListSortDirection.Ascending));

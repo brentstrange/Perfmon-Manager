@@ -3,14 +3,14 @@ using System.Diagnostics;
 
 namespace PerfMonManager
 {
-    public class Categories : Category
+    public class Categories : ICategory
     {
         /// <summary>
         /// Get all categories
         /// </summary>
         /// <param name="machineName">Machine name to get categories from.</param>
         /// <returns>Array of PerformanceCounterCategory</returns>
-        public PerformanceCounterCategory[] getAll(string machineName = null)
+        public PerformanceCounterCategory[] GetAll(string machineName = null)
         {
             var categories = new PerformanceCounterCategory[] { };
 
@@ -37,8 +37,8 @@ namespace PerfMonManager
         /// <summary>
         /// Delete a category
         /// </summary>
-        /// <param name="categoryName">Category name to delete</param>
-        public void delete(string categoryName)
+        /// <param name="categoryName">Category name to Delete</param>
+        public void Delete(string categoryName)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace PerfMonManager
         /// </summary>
         /// <param name="categoryName">Category name to get intances for</param>
         /// <returns></returns>
-        public String[] getInstanceNames(string categoryName)
+        public String[] GetInstanceNames(string categoryName)
         {
             try
             { 

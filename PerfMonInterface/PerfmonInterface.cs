@@ -2,29 +2,29 @@
 
 namespace PerfMonManager
 {
-    interface Category
+    interface ICategory
     {
-        PerformanceCounterCategory[] getAll(string machineName = null);
+        PerformanceCounterCategory[] GetAll(string machineName = null);
 
-        void delete(string category);
+        void Delete(string category);
 
-        string[] getInstanceNames(string categoryName);
+        string[] GetInstanceNames(string categoryName);
     }
 
-    interface Counter
+    interface ICounter
     {
-        PerformanceCounter[] list(string category, string instanceName = null);
+        PerformanceCounter[] List(string category, string instanceName = null);
 
-        void create(string category, string categoryHelp, 
+        void Create(string category, string categoryHelp, 
             PerformanceCounterCategoryType categoryType,
             CounterCreationDataCollection countCreationData);
 
-        void add(string categoryName,
+        void Add(string categoryName,
             CounterCreationDataCollection countCreationData,
             string instanceName = null,
             string machineName = null);
 
-        void deleteOne(string categoryName, string counterName,
+        void DeleteOne(string categoryName, string counterName,
             string instanceName = null,
             string machineName = null);
     }
