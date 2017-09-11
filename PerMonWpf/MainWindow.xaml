@@ -13,7 +13,7 @@
                  SelectionChanged="categoriesListBox_SelectionChanged"
                  DisplayMemberPath="CategoryName"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 HorizontalAlignment="Left" Height="111" Margin="10,10,0,0" VerticalAlignment="Top" Width="224"/>
+                 HorizontalAlignment="Left" Height="111" Margin="10,10,0,0" VerticalAlignment="Top" Width="224" Loaded="categoriesListBox_Loaded"/>
         <TextBox x:Name="categoryHelpTextBox" HorizontalAlignment="Left" Height="111" Margin="239,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="367"/>
         <Label x:Name="categoryTypeLabel" Content="" HorizontalAlignment="Left" Margin="611,10,0,0" VerticalAlignment="Top" Width="344"/>
         <Label x:Name="machineNameLabel" Content="" HorizontalAlignment="Left" Margin="611,41,0,0" VerticalAlignment="Top" Width="344"/>

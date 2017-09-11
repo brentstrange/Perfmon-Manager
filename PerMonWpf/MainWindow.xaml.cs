@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -82,6 +83,12 @@ namespace PerMonWpf
                     MessageBox.Show(ex.ToString());
                 }
             }
+        }
+
+        private void categoriesListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            categoriesListBox.Items.SortDescriptions.Add(new SortDescription("CategoryName",
+                ListSortDirection.Ascending));
         }
     }
 }
